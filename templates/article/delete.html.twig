@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Delete Article{% endblock %}
+
+{% block body %}
+    <h1>Delete Article</h1>
+    <p>Confirm delete article: '{{ article.title }}' ? </p>
+
+    <form method="post" action="{{ path('article_delete', {'id': article.id}) }}" >
+        <input type="hidden" name="_method" value="DELETE">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
+        <button class="btn">Yes</button>
+    </form>
+    <a href="{{ path('article_index') }}">No</a>
+{% endblock %}
