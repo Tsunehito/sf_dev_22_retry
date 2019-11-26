@@ -9,6 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/article")
@@ -16,6 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ArticleController extends AbstractController
 {
     /**
+     * @IsGranted("ROLE_LIST_ARTICLE")
      * @Route("/", name="article_index", methods={"GET"})
      */
     public function index(ArticleRepository $articleRepository): Response
@@ -26,6 +29,7 @@ class ArticleController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_CREATE_ARTICLE")
      * @Route("/new", name="article_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
@@ -49,6 +53,7 @@ class ArticleController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_READ_ARTICLE")
      * @Route("/{id}", name="article_show", methods={"GET"})
      */
     public function show(Article $article): Response
@@ -59,6 +64,7 @@ class ArticleController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_UPDATE_ARTICLE", subject="article")
      * @Route("/{id}/edit", name="article_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Article $article): Response
@@ -79,6 +85,7 @@ class ArticleController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_DELETE_ARTICLE")
      * @Route("/{id}/delete", name="article_confirm_delete", methods={"GET"})
      */
     public function confirm_delete(Request $request, Article $article): Response
@@ -89,6 +96,7 @@ class ArticleController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_DELETE_ARTICLE")
      * @Route("/{id}", name="article_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Article $article): Response

@@ -5,8 +5,12 @@
     <a class="p-2 text-dark" href="#">Enterprise</a>
     <a class="p-2 text-dark" href="#">Support</a>
     <a class="p-2 text-dark" href="#">Pricing</a>
+    {% if app.user is null %}
+      <a class="btn btn-outline-primary" href="{{ path('app_login') }}">Sign up</a>
+    {% else %}
+      <a class="btn btn-outline-primary" href="{{ path('app_logout') }}">Logout</a>
+    {% endif %}
   </nav>
-  <a class="btn btn-outline-primary" href="#">Sign up</a>
 </div>
 
 <div class="container">
