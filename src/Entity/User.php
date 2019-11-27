@@ -83,7 +83,7 @@ class User implements UserInterface
     {
         return (string) $this->email;
     }
-
+    
     /**
      * @see UserInterface
      */

@@ -38,14 +38,13 @@ class RegistrationController extends AbstractController
 
             // do anything else you need here, like send an email
             return $this->redirectToRoute('app_login');
-
-            // Bug ?? connect auto
-            // return $guardHandler->authenticateUserAndHandleSuccess(
-            //     $user,
-            //     $request,
-            //     $authenticator,
-            //     'main' // firewall name in security.yaml
-            // );
+            
+            /*return $guardHandler->authenticateUserAndHandleSuccess(
+                $user,
+                $request,
+                $authenticator,
+                'main' // firewall name in security.yaml
+            );*/
         }
 
         return $this->render('registration/register.html.twig', [

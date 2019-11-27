@@ -15,31 +15,32 @@ class UserFixtures extends Fixture
         $this->passwordEncoder = $passwordEncoder;
     }
 
+
     public function load(ObjectManager $manager)
     {
         $faker = Faker\Factory::create('fr_FR');
-        $count = 1;
+
+        $count    = 0;
         $userInfo = [
-            "user@gmail.com" => "",
-            "admin@gmail.com" => '["ROLE_ADMIN"]',
-            "author@gmail.com" => '["ROLE_AUTHOR"]',
-            "author2@gmail.com" => '["ROLE_AUTHOR"]',
+            "user@gmail.com" => [],
+            "admin@gmail.com" => ["ROLE_ADMIN"],
+            "author@gmail.com" => ["ROLE_AUTHOR"],
+            "author2@gmail.com" => ["ROLE_AUTHOR"],
         ];
-        
-        foreach ($userInfo as $email => $role) { 
+
+        foreach($userInfo as $email=>$role){
+
             $user = new User();
-            $user->setLastName($faker->word());
-            $user->setfirstName($faker->word());
+            $user->setLastName($faker->lastName());
+            $user->setFirstName($faker->firstName());
             $user->setEmail($email);
-            $user->setPassword(
-                $$this->encodePassword(
-                    $user,
-                    $email
-                ));
-            $user->setRole($role);
+            $user->setPassword($this->passwordEncoder->encodePassword($user, $email));
+            $user->setRoles($role);
             $manager->persist($user);
-            $this->addReference('CAT' . $count, $user);
+
+            $this->addReference('USER'.$count, $user);
             $count++;
+
             $manager->flush();
         }
     }

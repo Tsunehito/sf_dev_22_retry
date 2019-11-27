@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% import "extra/macro/btn.html.twig" as btn %}
 
 {% block title %}Category index{% endblock %}
 
@@ -19,6 +20,10 @@
                 <td>{{ category.id }}</td>
                 <td>{{ category.name }}</td>
                 <td>
+                    {{ btn.simple(path('category_show', {'id': category.id}), "info", "Show", "ROLE_READ_CATEGORY", category) }}
+                    {{ btn.simple(path('category_edit', {'id': category.id}), "success", "Edit", "ROLE_UPDATE_CATEGORY", category) }}
+                    {{ btn.simple(path('category_confirm_delete', {'id': category.id}), "danger", "Delete", "ROLE_DELETE_CATEGORY", category) }}
+
                     <a href="{{ path('category_show', {'id': category.id}) }}">show</a>
                     <a href="{{ path('category_edit', {'id': category.id}) }}">edit</a>
                     <a href="{{ path('category_comfirm_delete', {'id': category.id}) }}">delete</a>
@@ -32,5 +37,6 @@
         </tbody>
     </table>
 
-    <a href="{{ path('category_new') }}">Create new</a>
+    {{ btn.simple(path('article_new'), "primary", "Add", "ROLE_LIST_ARTICLE") }}
+
 {% endblock %}
